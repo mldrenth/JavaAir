@@ -19,6 +19,7 @@ public class FlightTest {
 
     @Before
     public void before(){
+        passenger = new Passenger("Paul", 2);
         pilot = new Pilot("Bill", RankType.CAPTAIN, "ABC1");
         flightAttendant1 = new CabinCrewMember("Anna", RankType.FLIGHTATTENDANT);
         flightAttendant2 = new CabinCrewMember("Bob", RankType.FLIGHTATTENDANT);

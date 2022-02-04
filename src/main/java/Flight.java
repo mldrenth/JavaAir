@@ -32,6 +32,9 @@ public class Flight {
         return this.flightNumber;
     }
 
+    public ArrayList<Passenger> getPassengerList() {
+        return passengerList;
+    }
 
     public int getNumberOfPilots() {
         return this.pilotList.size();
