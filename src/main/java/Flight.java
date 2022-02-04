@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Flight {
 
@@ -11,6 +15,7 @@ public class Flight {
     private String destination;
     private String departureAirport;
     private Date departureTime;
+    private List<Integer> remainingSeatNumbers;
 
 
 
@@ -23,6 +28,7 @@ public class Flight {
         this.destination = destination;
         this.departureAirport = departureAirport;
         this.departureTime = departureTime;
+        this.remainingSeatNumbers = IntStream.range(1, this.plane.getPlaneType().getCapacity() +1).boxed().collect(Collectors.toList());
     }
 
     public Plane getPlane() {
@@ -61,9 +67,13 @@ public class Flight {
         return this.departureTime;
     }
 
+    public List<Integer> getRemainingSeatNumbers() {
+        return this.remainingSeatNumbers;
+    }
+
 
     public int getRemainingSeats() {
-        return (this.plane.getPlaneType().getCapacity() - this.getNumberOfPassengers());
+        return this.remainingSeatNumbers.size();
     }
 
     public boolean hasEmptySeats(){
@@ -72,6 +82,15 @@ public class Flight {
 
     public void bookPassenger(Passenger passenger) {
         if (hasEmptySeats()) {
-        this.passengerList.add(passenger);}
+        this.passengerList.add(passenger);
+        passenger.setFlight(this);
+        passenger.setSeatNumber(this.allocateSeatNumber());}
+    }
+
+    public int allocateSeatNumber() {
+        int seatNumber = this.remainingSeatNumbers.get(new Random().nextInt(remainingSeatNumbers.size()));
+        int indexOfSeat = this.remainingSeatNumbers.indexOf(seatNumber);
+        this.remainingSeatNumbers.remove(indexOfSeat);
+        return seatNumber;
     }
 }

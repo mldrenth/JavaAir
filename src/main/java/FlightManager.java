@@ -26,7 +26,7 @@ public class FlightManager {
         double totalWeight = 0;
         ArrayList<Passenger> passengerList = new ArrayList<>(this.flight.getPassengerList());
         for (Passenger passenger : passengerList) {
-            totalWeight += passenger.numberOfBags * this.calcSingleBaggageWeight();
+            totalWeight += passenger.getNumberOfBags() * this.calcSingleBaggageWeight();
 
         }
         return totalWeight;
